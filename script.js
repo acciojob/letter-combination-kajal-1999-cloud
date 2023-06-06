@@ -1,29 +1,35 @@
-let mapping = {
-  "2" : "abc",
-  "3" : "def",
-  "4" : "ghi",
-  "5" : "jkl" ,
-  "6" : "mno" , 
-  "7" : "pqrs" , 
-  "8" : "tuv"  ,
-  "9" : "wxyz"
+function letterCombinations(input_digit) {
+  //Complete the function
+	var mapping = {
+		  2: "abc",
+		  3: "def",
+		  4: "ghi",
+		  5: "jkl",
+		  6: "mno",
+		  7: "pqrs",
+		  8: "tuv",
+		  9: "wxyz",
+		  0: "0",
+		  1: "1"
+	};
+
+	var stringArray = [''];
+
+	for(let i = 0; i < input_digit.length; i++){
+		let digit = input_digit[i];
+		let letters = mapping[digit];
+		let newCombination = [];
+
+		for(let j = 0; j < stringArray.length; j++){
+			var combination = stringArray[j];
+
+			for(let k = 0; k < letters.length; k++){
+				newCombination.push(combination + letters[k]);
+			}
+		}
+		stringArray = newCombination;
+	}
+	return stringArray;
 }
 
-let results = [] ;
-let searchString = "23" ;
-
-function solve(index, calculatedString) {
-  if(index >= searchString.length) {
-    results.push(calculatedString) ;
-    return ;
-  }
-  let curString = mapping[searchString[index]] ;// mapping[searchString[0]] => mapping["2"] => "abc"
-  for(let i = 0 ; i < curString.length ; i++ ) {
-    solve(index + 1, calculatedString + curString[i]) ; // index=1, calculatedString = ("" + curString)=> abc;
-  }
-}
-
-solve(0, "") ;
-console.log(results) ;
-
-module.exports = solve;
+module.exports = letterCombinations;
